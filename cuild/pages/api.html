@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cuild - api reference</title>
+    <link rel="stylesheet" href="../css/main.css">
+  </head>
+  <body>
+    <img class="displayed" src="../resources/logo.png", alt="cuild's logo">
+    <div class="header1">API reference</div>
+    <hr>
+    <p>This page provides all the functions that are available for Cuildfiles. It works as a cheatsheet, so when you're lost, come here!</p>
+    <pre><code>/* Available functions */
+compiler(name)       // Set your project's compiler
+project(name)        // Set your project's name
+add_file(file)       // Add a file to your project
+link_lib(lib)        // Link a library to your project (-llib)
+add_cflag(flag)      // Add a compiler flag to your project (it can be anything, like Wall)
+include(path)        // Add an include path to your project (-Iinclude)
+link_dir(dir)        // Link a directory to your project (-Llib)
+add_define(define)   // Add a define to your project (-DSMTH)
+add_obj(obj)         // Add an object file to your project (.o)
+make_static(libname) // Compile a static library
+
+/* Work-in-progress functions */
+if_os(os)            // Check what OS you are running, then do some stuff
+if_end()             // End the if statement for the OS
+make_shared(libname) // Compile a shared (.so/.dll) library</code></pre>
+  </body>
+</html>

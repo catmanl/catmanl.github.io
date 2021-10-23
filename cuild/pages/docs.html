@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cuild - documentation</title>
+    <link rel="stylesheet" href="../css/main.css">
+  </head>
+  <body>
+    <img class="displayed" src="../resources/logo.png", alt="cuild's logo">
+    <div class="header1">Documentation</div>
+    <p>Index:</p>
+    <li><a href="#getting_started">1. Getting started</a></li>
+    <li><a href="#complex_projects">2. A bit more complex projects</a></li>
+    <li><a href="#preprocessor">3. Preprocessor</a></li>
+    <li><a href="#libraries">4. Compiling libraries</a></li>
+    <hr>
+    <a name="getting_started">
+    <div class="header2"><strong>1. Getting started</strong></div>
+    <p>The most basic program consists of the compiler, the project's name and a source code file.</p>
+    <p>Create a file that's named "Cuildfile", then type in the following:</p>
+    <pre><code>compiler(gcc)
+project(my_project)
+
+add_file(main.c)
+</code></pre>
+    <p>Run cuild, and this should generate an executable, "my_project" in your current directory.</p>
+    <p>It is important that you run cuild wherever your Cuildfile is, else an error will be given.</p>
+    <hr>
+    <a name="complex_projects">
+    <div class="header2"><strong>2. A bit more complex projects</strong></div>
+    <p>A build system is used to replace really long compiling commands, and cuild is no exception. Let's say we have the following program:</p>
+    <pre><code>#include &lt;GLFW/glfw3.h&gt;
+
+int main(void)
+{
+  // Init GLFW
+  if (!glfwInit()) {
+    return -1;
+  }
+
+  // Create the window
+  GLFWwindow *window = glfwCreateWindow(800, 450, "My OpenGL program", NULL, NULL);
+  if (window == NULL) {
+    glfwTerminate();
+    return -1;
+  }
+
+  // Loop
+  // Just render a white screen
+  while (!glfwWindowShouldClose(window)) {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  // General cleanup
+  glfwDestroyWindow(window);
+  glfwTerminate();
+
+  return 0;
+}
+
+</code></pre>
+    <p>This code is obviously more complex than a simple hello world, this is an OpenGL program.</p>
+    <p>Normally we would write</p>
+    <pre><code>gcc main.c -lglfw -lGL -o main</code></pre>
+    <p>But imagine that our program gets much more complex throughout time. That's what cuild works for.</p>
+    <p>cuild can easily link libraries. Here's how we can compile this program in just a few lines of code:</p>
+    <pre><code>compiler(gcc)
+project(main)
+
+add_file(main.c)
+link_lib(glfw)
+link_lib(GL)
+</code></pre>
+    <hr>
+    <a name="preprocessor">
+    <div class="header2"><strong>3. Preprocessor</strong></div>
+    <p>C programmers love to use the preprocessor. cuild also allows you to add defines to your project.</p>
+    <p>For example, say you had this</p>
+    <pre><code>#include "my_header.h"
+
+int main(void)
+{
+#ifdef MY_DEFINE
+  do_something();
+#else
+  do_something_else();
+#endif
+
+  return 0;
+}</code></pre>
+    <p>To run one or another, these are defined either in the source code or during compile time.</p>
+    <p>You can use the add_define function to run a specific piece of code:</p>
+    <pre><code>compiler(gcc)
+project(defines)
+
+add_file(main.c)
+add_define(MY_DEFINE)
+</code></pre>
+    <hr>
+    <a name="libraries">
+    <div class="header2"><strong>4. Compiling libraries</strong></div>
+    <p>cuild wouldn't be complete if you weren't able to compile libraries.</p>
+    <p>At the moment, you can only compile static libraries. But don't worry, shared libraries will be implemented soon.</p>
+    <p>To compile static libraries, we'll need to make use of the add_obj and make_static functions. Here's <a href="https://github.com/catmanl/qg">qg</a> being compiled with cuild:</p>
+    <pre><code>compiler(gcc)
+project(qg)
+
+add_obj(qg)
+add_obj(qglfw)
+add_cflag(Wall)
+make_static(libqg)
+</code></pre>
+    <p>As you can see, we have rewritten most of the Makefile in just 7 lines of code.</p>
+  </body>
+</html>

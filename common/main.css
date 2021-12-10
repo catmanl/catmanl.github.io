@@ -8,13 +8,13 @@
   src: url(../resources/NotoSansMono-Regular.ttf) format(truetype);
 }
 
-.header1 {
+h1 {
   font-size: 40px;
   font-family: "big-header";
   text-align: center;
 }
 
-.header2 {
+h2 {
   font-size: 30px;
   font-family: "mid-header";
 }

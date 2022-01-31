@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>File Viewer</title>
+    </head>
+
+    <body>
+        <script src="index.js"></script>
+        <div align="center">
+            <h1 style="font-size: 48px">File Viewer</h1>
+            <p style="font-size: 24px;">In case you're a phone user, you may know how tedious it is to view code from others, since you have to download an app to view the code you're sent, blah blah. That's why I made this.</p>
+            <input type="button" value="Select file" onclick="openFile()" style="font-size: 36px;"/>
+        </div>
+        <input id="fileIn" type="file" style="display: none;" onchange="fileSelected(this)"/>
+
+        <pre><code id="output" style="font-size: 24px;"></code></pre>
+    </body>
+</html>
+
